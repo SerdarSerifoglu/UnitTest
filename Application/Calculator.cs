@@ -8,13 +8,15 @@ namespace Application
 {
     public class Calculator
     {
+        private ICalculatorService _calculatorService;
+        public Calculator(ICalculatorService calculatorService)
+        {
+            _calculatorService = calculatorService;
+        }
+
         public int Add(int a, int b)
         {
-            if(a == 0 || b == 0)
-            {
-                return 0;
-            }
-            return a + b;
+           return _calculatorService.Add(a, b);
         }
     }
 }
