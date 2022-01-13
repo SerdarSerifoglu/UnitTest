@@ -114,5 +114,16 @@ namespace Test
 
 
         }
+
+        [Theory]
+        [InlineData(2, 5, 7)]
+        [InlineData(2, 15, 17)]
+        public void AddTestWithArguments(int a, int b, int expectedTotal)
+        {
+            var calculator = new Calculator();
+            var actualTotal = calculator.Add(a, b);
+
+            Assert.Equal<int>(expectedTotal, actualTotal);
+        }
     }
 }
