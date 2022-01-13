@@ -10,6 +10,12 @@ namespace Test
 {
     public class CalculatorTest
     {
+        public Calculator calculator { get; set; }
+        public CalculatorTest()
+        {
+            this.calculator = new Calculator();
+        }
+
         [Fact]
         public void AddTest()
         {
@@ -19,7 +25,6 @@ namespace Test
             //Arrange - Hazırlık evresidir.
             int a = 5;
             int b = 20;
-            var calculator = new Calculator();
 
             //Act - Test edilecek methodun çağırıldığı evredir.
             var total = calculator.Add(a, b);
@@ -120,7 +125,6 @@ namespace Test
         [InlineData(2, 15, 17)]
         public void AddTestWithArguments(int a, int b, int expectedTotal)
         {
-            var calculator = new Calculator();
             var actualTotal = calculator.Add(a, b);
 
             Assert.Equal<int>(expectedTotal, actualTotal);
