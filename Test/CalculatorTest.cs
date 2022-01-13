@@ -129,5 +129,25 @@ namespace Test
 
             Assert.Equal<int>(expectedTotal, actualTotal);
         }
+
+        [Theory]
+        [InlineData(2, 5, 7)]
+        [InlineData(2, 15, 17)]
+        public void Add_SimpleValues_ReturnTotalValue(int a, int b, int expectedTotal)
+        {
+            var actualTotal = calculator.Add(a, b);
+
+            Assert.Equal<int>(expectedTotal, actualTotal);
+        }
+
+        [Theory]
+        [InlineData(0, 5, 0)]
+        [InlineData(2, 0, 0)]
+        public void Add_ZeroValues_ReturnZeroValue(int a, int b, int expectedTotal)
+        {
+            var actualTotal = calculator.Add(a, b);
+
+            Assert.Equal<int>(expectedTotal, actualTotal);
+        }
     }
 }
