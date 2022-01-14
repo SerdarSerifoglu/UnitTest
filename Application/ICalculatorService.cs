@@ -9,5 +9,6 @@ namespace Application
     public interface ICalculatorService
     {
         public int Add(int a, int b);
+        public int Multiplication(int a, int b);
     }
 }

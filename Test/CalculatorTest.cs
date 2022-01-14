@@ -1,4 +1,5 @@
 ﻿using Application;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,12 @@ namespace Test
     public class CalculatorTest
     {
         public Calculator calculator { get; set; }
+        public Mock<ICalculatorService> myMock { get; set; }
         public CalculatorTest()
         {
-            this.calculator = null;//new Calculator();
+            //ICalculatorService'i implemente etmiş olan CalculatorService classını taklit ediyoruz
+            myMock = new Mock<ICalculatorService>();
+            this.calculator = new Calculator(myMock.Object);
         }
 
         [Fact]
@@ -135,9 +139,15 @@ namespace Test
         [InlineData(2, 15, 17)]
         public void Add_SimpleValues_ReturnTotalValue(int a, int b, int expectedTotal)
         {
+            //ICalculatorService'i implemente etmiş olan CalculatorService classını taklit ediyoruz. Bu şekilde kullandığımızda CalculatorService içerisindeki Add methodunu çalıştırmak yerine direkt expectedTotal değerini alt satırdaki actualTotal değerine atıyor.
+            myMock.Setup(x => x.Add(a, b)).Returns(expectedTotal);
+            myMock.Setup(x => x.Multiplication(a,b)).Returns(expectedTotal);
             var actualTotal = calculator.Add(a, b);
+            var actualResult = calculator.Multiplication(a, b);
 
             Assert.Equal<int>(expectedTotal, actualTotal);
+            Assert.Equal<int>(expectedTotal, actualResult);
+
         }
 
         [Theory]
